@@ -27,7 +27,7 @@ int main()
     int i_Asignaturas, i_Estudiantes = 0; // i_Asignaturas me ayuda a saber donde se guarda lo que el usuario ponga
     int Listas = 1;
     int Num_Asignatura = 0, Num_Estudiantes = 0;
-    int i = 0, b = 0;
+    int i = 0, b = 0, j= 0;
     int Borrar_Asignatura, Borrar_Estudiante;
     int Encontrado, Encontrado2, Posicion, Posicion2;
 
@@ -360,7 +360,7 @@ int main()
             }
             else if (Asignaturas_C > 0 && Estudiantes_C > 0)
             {
-                for (i = 0; i <= Estudiantes_C; i++)
+                for (i = 0; i < Estudiantes_C; i++)
                 {
                     printf("Estudiante registrados: %s", Estudiantes[i]);
                 }
@@ -438,12 +438,12 @@ int main()
 
             case 4:
                 system("cls");
-                printf("A que estudiante desea buscar:");
+                printf("A que estudiante desea buscar:\n");
                 fgets(Nombre_Estudiante, sizeof(Nombre_Estudiante), stdin);
-                Nombre_Estudiante[strcpn(Nombre_Estudiante, "/n")] = 0;
+                Nombre_Estudiante[strcspn(Nombre_Estudiante, "\n")] = 0;
                 for (i = 0; i < Estudiantes_C; i++)
                 {
-                    if (strcspn(Nombre_Estudiante, Estudiantes[i]) == 0)
+                    if (strcmp(Nombre_Estudiante, Estudiantes[i]) == 0)
                     {
                         Posicion = i;
                         Encontrado = 1;
@@ -451,9 +451,10 @@ int main()
                 }
                 if (Encontrado == 1)
                 {
-                    for (i = 0; i > Asignaturas_C; i++)
+                    for (j = 0; j < Asignaturas_C; j++)
                     {
-
+                        printf("Las notas del estudiante : %s", Nombre_Estudiante);
+                        printf("%s: %f\n", Asignaturas[j], Calificacion[Posicion][j]);
                     }
                 }
                 else
