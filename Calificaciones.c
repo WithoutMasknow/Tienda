@@ -3,22 +3,40 @@
 #include <stdlib.h>
 #include <locale.h>
 
+#define MAX_ESTUDIANTES 20
+#define MAX_ASIGNATURAS 10
+
 int main()
 {
     setlocale(LC_ALL, "");
-    // Definimos las credenciales correctas
+
+    // --- VARIABLES DE CREDENCIALES Y AUTENTICACIÓN ---
     char Usuario[20] = "Marlon y David";
     char Verificacion_Identidad[20];
-    char Asignaturas[20][50];
-    char Estudiantes[20][50];
+    int Contrasena = 123456;
+    int Verificacion_Contrasena;
+
+    // --- ARREGLOS DE DATOS PRINCIPALES ---
+    char Asignaturas[MAX_ASIGNATURAS][50];
+    char Estudiantes[MAX_ESTUDIANTES][50];
+    float Calificacion[20][10];
+
+    // --- VARIABLES DE CONTROL Y CONTADORES ---
+    int Op = 0, Op2 = 0;
+    int Asignaturas_C = 0, Estudiantes_C = 0;
+    int i_Asignaturas, i_Estudiantes = 0; // i_Asignaturas me ayuda a saber donde se guarda lo que el usuario ponga
+    int Listas = 1;
+    int Num_Asignatura = 0, Num_Estudiantes = 0;
+    int i = 0, b = 0;
+    int Borrar_Asignatura, Borrar_Estudiante;
+    int Encontrado, Encontrado2, Posicion, Posicion2;
+
+    // OTRA
+    int i_Pedidas = 1;
+
+    // Variables temporales para búsquedas
     char Nombre_Estudiante[50];
     char Nombre_Asignatura[50];
-
-    int Contrasena = 123456;
-    int Verificacion_Contrasena, Op, Yes_No, i, i_Pedidas, Asignaturas_C = 0, Estudiantes_C = 0;
-
-    float Calificacion[Estudiantes][Asignaturas];
-
 
     do
     {
@@ -33,11 +51,12 @@ int main()
         printf("Profe la contrasena es: 123456\n");
         scanf("%d", &Verificacion_Contrasena);
         getchar();
-        if (strcmp(Usuario, Verificacion_Identidad) != 0 && Contrasena != Verificacion_Contrasena)
+        if (strcmp(Usuario, Verificacion_Identidad) != 0 || Contrasena != Verificacion_Contrasena)
         {
             printf("Usuario o contrasena incorrectos. Intente de nuevo.\n");
             printf("Toque una tecla para continuar\n");
             system("pause");
+            getchar();
             system("cls");
         }
 
@@ -48,6 +67,7 @@ int main()
     printf("\n¡Acceso concedido! Bienvenido al sistema.\n");
     printf("Toque una tecla para continuar\n");
     system("pause");
+    getchar();
     system("cls");
 
     do
@@ -65,59 +85,275 @@ int main()
         getchar();
 
         i_Pedidas = 1;
+        Listas = 1;
 
         switch (Op)
         {
         case 1:
-            for (i = 0; i != i_Pedidas; i++)
+            system("cls");
+            Listas = 1;
+            i_Pedidas = 1;
+            do
             {
-                if (i > 0)
+                for (i = 0; i != i_Pedidas; i++)
                 {
-                    printf("Presione algo para continuar\n");
-                    ststem("pause");
-                    syste("cls");
+                    if (i > 0)
+                    {
+                        printf("Presione algo para continuar\n");
+                        system("pause");
+                        getchar();
+                        system("cls");
+                    }
                 }
 
-                printf("Escriba la asignatura\n");
-                fgets(Asignaturas[i], sizeof(Asignaturas[i]), stdin);
-                Asignaturas[i][strcspn(Asignaturas[i], "\n")] = 0;
-                printf("Quiere resgistrar otra asignatura? (1=Si, 2=No): ");
-                scanf("%d", &Yes_No);
+                printf("Menu de Opciones\n");
+                printf("1.- Registrar Asignatura\n");
+                printf("2.- Editar Asignatura\n");
+                printf("3.- Borrar Asignatura\n");
+                printf("4.- Mostrar Asignaturas\n");
+                printf("5.- Salir\n");
+                scanf("%d", &Op2);
                 getchar();
-                Asignaturas_C = Asignaturas_C + 1;
-                if (Yes_No == 1)
+
+                switch (Op2)
                 {
-                    i_Pedidas++;
+                case 1:
+
+                    printf("Escriba el nombre de la Asignatura a registrar: ");
+                    fgets(Asignaturas[i_Asignaturas], sizeof(Asignaturas[i_Asignaturas]), stdin);
+                    Asignaturas[i_Asignaturas][strcspn(Asignaturas[i_Asignaturas], "\n")] = 0;
+                    Asignaturas_C = Asignaturas_C + 1;
+                    printf("Asignatura registrada correctamente: %s\n", Asignaturas[i_Asignaturas]);
+                    i_Asignaturas++;
+                    printf("Presione algo para continuar\n");
+                    system("pause");
+                    getchar();
+                    system("cls");
+                    break;
+
+                case 2:
+
+                    for (i = 0; i < Asignaturas_C; i++)
+                    {
+                        printf("%d.-  ", Listas++);
+                        printf("Asignatura registrada: %s\n", Asignaturas[i]);
+                    }
+                    printf("Escriba el numero de la Asignatura a editar: ");
+                    scanf("%d", &Num_Asignatura);
+                    getchar();
+                    printf("Escriba el nuevo nombre de la Asignatura: ");
+                    fgets(Asignaturas[Num_Asignatura - 1], sizeof(Asignaturas[Num_Asignatura - 1]), stdin);
+                    Asignaturas[Num_Asignatura - 1][strcspn(Asignaturas[Num_Asignatura - 1], "\n")] = 0;
+                    printf("Asignatura editada correctamente: %s\n", Asignaturas[Num_Asignatura - 1]);
+                    printf("Presione algo para continuar\n");
+                    system("pause");
+                    getchar();
+                    system("cls");
+                    break;
+
+                case 3:
+
+                    for (i = 0; i < Asignaturas_C; i++)
+                    {
+                        printf("%d.-  ", Listas++);
+                        printf("Asignatura registrada: %s\n", Asignaturas[i]);
+                    }
+                    printf("Escriba el numero de la Asignatura a borrar: ");
+                    scanf("%d", &Num_Asignatura);
+                    getchar();
+
+                    Borrar_Asignatura = Num_Asignatura - 1;
+
+                    if (Borrar_Asignatura >= 0 && Borrar_Asignatura < Asignaturas_C)
+                    {
+                        printf("Asignatura borrada correctamente: %s\n", Asignaturas[Num_Asignatura - 1]);
+                        Asignaturas[Num_Asignatura - 1][0] = 0;
+
+                        // Desplazar las asignaturas hacia la izquierda para rellenar el espacio
+                        for (b = Borrar_Asignatura; b < Asignaturas_C - 1; b++)
+                        {
+                            strcpy(Asignaturas[b], Asignaturas[b + 1]);
+                        }
+
+                        // Limpiar la última posición que ahora queda duplicada al final
+                        Asignaturas[Asignaturas_C - 1][0] = '\0';
+
+                        // Reducir el contador total de asignaturas
+                        Asignaturas_C--;
+                        printf("Presione algo para continuar\n");
+                        system("pause");
+                        getchar();
+                        system("cls");
+                        break;
+                    }
+                    else
+                    {
+                        printf("Numero de asignatura invalido.\n");
+                        printf("Presione algo para continuar\n");
+                        system("pause");
+                        getchar();
+                        system("cls");
+                        break;
+                    }
+
+                case 4:
+
+                    for (i = 0; i < Asignaturas_C; i++)
+                    {
+                        printf("%d.-  ", Listas++);
+                        printf("Asignatura registrada: %s\n", Asignaturas[i]);
+                    }
+                    printf("Presione algo para continuar\n");
+                    system("pause");
+                    getchar();
+                    system("cls");
+                    break;
                 }
-            }
+
+            } while (Op2 != 5);
             break;
+
+            // case2
+            //  ============================================================
+            //  ============================================================
+            //  ============================================================
+            //  ============================================================
+            //  ============================================================
 
         case 2:
-            for (i = 0; i != i_Pedidas; i++)
+            system("cls");
+            Listas = 1;
+            i_Pedidas = 1;
+            do
             {
-                if (i > 0)
+                for (i = 0; i != i_Pedidas; i++)
                 {
-                    printf("Presione algo para continuar\n");
-                    ststem("pause");
-                    syste("cls");
+                    if (i > 0)
+                    {
+                        printf("Presione algo para continuar\n");
+                        system("pause");
+                        getchar();
+                        system("cls");
+                    }
                 }
 
-                printf("Escriba el nombre del estudiante");
-                fgets(Estudiantes[i], sizeof(Estudiantes[i]), stdin);
-                Estudiantes[i][strcspn(Estudiantes[i], "\n")] = 0;
-                printf("Quiere resgistrar otro estudiante? (1=Si, 2=No): ");
-                scanf("%d", &Yes_No);
+                printf("Menu de Opciones\n");
+                printf("1.- Registrar Estudiante\n");
+                printf("2.- Editar Estudiante\n");
+                printf("3.- Borrar Estudiante\n");
+                printf("4.- Mostrar Estudiantes\n");
+                printf("5.- Salir\n");
+                scanf("%d", &Op2);
                 getchar();
-                Estudiantes_C = Estudiantes_C + 1;
-                if (Yes_No == 1)
+
+                switch (Op2)
                 {
-                    i_Pedidas++;
+                case 1:
+
+                    printf("Escriba el nombre del Estudiante a registrar: ");
+                    fgets(Estudiantes[i_Estudiantes], sizeof(Estudiantes[i_Estudiantes]), stdin);
+                    Estudiantes[i_Estudiantes][strcspn(Estudiantes[i_Estudiantes], "\n")] = 0;
+                    Estudiantes_C = Estudiantes_C + 1;
+                    printf("Estudiante registrado correctamente: %s\n", Estudiantes[i_Estudiantes]);
+                    i_Estudiantes++;
+                    printf("Presione algo para continuar\n");
+                    system("pause");
+                    getchar();
+                    system("cls");
+                    break;
+
+                case 2:
+
+                    for (i = 0; i < Estudiantes_C; i++)
+                    {
+                        printf("%d.-  ", Listas++);
+                        printf("Estudiante registrado: %s\n", Estudiantes[i]);
+                    }
+                    printf("Escriba el numero del Estudiante a editar: ");
+                    scanf("%d", &Num_Estudiantes);
+                    getchar();
+                    printf("Escriba el nuevo nombre del Estudiante: ");
+                    fgets(Estudiantes[Num_Estudiantes - 1], sizeof(Estudiantes[Num_Estudiantes - 1]), stdin);
+                    Estudiantes[Num_Estudiantes - 1][strcspn(Estudiantes[Num_Estudiantes - 1], "\n")] = 0;
+                    printf("Estudiante editado correctamente: %s\n", Estudiantes[Num_Estudiantes - 1]);
+                    printf("Presione algo para continuar\n");
+                    system("pause");
+                    getchar();
+                    system("cls");
+                    break;
+
+                case 3:
+
+                    for (i = 0; i < Estudiantes_C; i++)
+                    {
+                        printf("%d.-  ", Listas++);
+                        printf("Estudiante registrado: %s\n", Estudiantes[i]);
+                    }
+                    printf("Escriba el numero del Estudiante a borrar: ");
+                    scanf("%d", &Num_Estudiantes);
+                    getchar();
+
+                    Borrar_Estudiante = Num_Estudiantes - 1;
+
+                    if (Borrar_Estudiante >= 0 && Borrar_Estudiante < Estudiantes_C)
+                    {
+                        printf("Estudiante borrado correctamente: %s\n", Estudiantes[Num_Estudiantes - 1]);
+                        Estudiantes[Num_Estudiantes - 1][0] = 0;
+
+                        // Desplazar las asignaturas hacia la izquierda para rellenar el espacio
+                        for (b = Borrar_Estudiante; b < Estudiantes_C - 1; b++)
+                        {
+                            strcpy(Estudiantes[b], Estudiantes[b + 1]);
+                        }
+
+                        // Limpiar la última posición que ahora queda duplicada al final
+                        Estudiantes[Estudiantes_C - 1][0] = '\0';
+
+                        // Reducir el contador total de estudiantes
+                        Estudiantes_C--;
+                        printf("Presione algo para continuar\n");
+                        system("pause");
+                        getchar();
+                        system("cls");
+                        break;
+                    }
+                    else
+                    {
+                        printf("Numero de estudiante invalido.\n");
+                        printf("Presione algo para continuar\n");
+                        system("pause");
+                        getchar();
+                        system("cls");
+                        break;
+                    }
+
+                case 4:
+
+                    for (i = 0; i < Estudiantes_C; i++)
+                    {
+                        printf("%d.-  ", Listas++);
+                        printf("Estudiante registrado: %s\n", Estudiantes[i]);
+                    }
+                    printf("Presione algo para continuar\n");
+                    system("pause");
+                    getchar();
+                    system("cls");
+                    break;
                 }
-            }
+
+            } while (Op2 != 5);
             break;
 
+            // case 3
+            // ============================================================
+            // ============================================================
+            // ============================================================
+            // ============================================================
+            // ============================================================
+
         case 3:
-            if (Asignaturas_C == 0 && Estudiantes_C == 0)
+            system("cls");
+            if (Asignaturas_C <= 0 || Estudiantes_C <= 0)
             {
                 printf("No hay asignaturas o estudiantes registrados.\n");
                 break;
@@ -132,53 +368,104 @@ int main()
                 fgets(Nombre_Estudiante, sizeof(Nombre_Estudiante), stdin);
                 Nombre_Estudiante[strcspn(Nombre_Estudiante, "\n")] = 0;
 
-                if (strcmp(Estudiantes[i], Nombre_Estudiante) == 0)
+                for (i = 0; i < Estudiantes_C; i++)
+                {
+                    // Comparamos el estudiante en la posición [i] con el nombre buscado
+                    if (strcmp(Estudiantes[i], Nombre_Estudiante) == 0)
+                    {
+                        Encontrado = 1; // Lo encontramos
+                        Posicion = i;   // Guardamos la posición en la que está
+                    }
+                }
+
+                if (Encontrado == 1)
                 {
                     printf("Estudiante Encontrado.\n");
-                    pritnf("Presione una tecla para continuar.\n");
+                    printf("Presione una tecla para continuar.\n");
                     system("pause");
+                    getchar();
                     system("cls");
                     do
                     {
-                        printf("En que asignatura desea ingresar la calificación para %s:", Nombre_Estudiante[50]);
+                        printf("En que asignatura desea ingresar la calificación para %s:", Nombre_Estudiante);
                         fgets(Nombre_Asignatura, sizeof(Nombre_Asignatura), stdin);
                         Nombre_Asignatura[strcspn(Nombre_Asignatura, "\n")] = 0;
 
-                        if (strcmp(Asignaturas[i], Nombre_Asignatura) == 0)
+                        for (i = 0; i < Asignaturas_C; i++)
+                        {
+                            // Comparamos el estudiante en la posición [i] con el nombre buscado
+                            if (strcmp(Asignaturas[i], Nombre_Asignatura) == 0)
+                            {
+                                Encontrado2 = 1; // Lo encontramos
+                                Posicion2 = i;   // Guardamos la posición en la que está
+                            }
+                        }
+
+                        if (Encontrado2 == 1)
                         {
                             printf("Asignatura Seleccionada.\n");
-                            pritnf("Presione una tecla para continuar.\n");
+                            printf("Presione una tecla para continuar.\n");
                             system("pause");
+                            getchar();
                             system("cls");
                         }
                         else
-                            (strcmp(Asignaturas[i], Nombre_Asignatura) != 0);
                         {
                             printf("Asignatura no encontrada\n");
-                            pritnf("Presione una tecla para continuar.\n");
+                            printf("Presione una tecla para continuar.\n");
                             system("pause");
+                            getchar();
                             system("cls");
                         }
-                    } while (strcmp(Asignaturas[i], Nombre_Asignatura) != 0);
+                    } while (Encontrado2 != 1);
+
                     printf("Ingrese la calificación para %s en %s: ", Nombre_Estudiante, Nombre_Asignatura);
-                    scanf("%f", &Calificacion[Estudiantes][Asignaturas]);
+                    scanf("%f", &Calificacion[Posicion][Posicion2]);
                     printf("Calificación registrada correctamente.\n");
-                    pritnf("%s en la %s: %.2f\n", Nombre_Estudiante, Nombre_Asignatura, Calificacion[Estudiantes][Asignaturas]);
-                    pritnf("Presione una tecla para continuar.\n");
+                    printf("%s en la %s: %.2f\n", Nombre_Estudiante, Nombre_Asignatura, Calificacion[Posicion][Posicion2]);
+                    printf("Presione una tecla para continuar.\n");
                     system("pause");
+                    getchar();
                     system("cls");
                     break;
                 }
                 printf("Estudiante no encontrado.\n");
-                pritnf("Presione una tecla para continuar.\n");
+                printf("Presione una tecla para continuar.\n");
                 system("pause");
+                getchar();
                 system("cls");
                 break;
 
             case 4:
                 system("cls");
-                printf("Buscar Estudiante\n");
-                Buscar_Estudiante();
+                printf("A que estudiante desea buscar:");
+                fgets(Nombre_Estudiante, sizeof(Nombre_Estudiante), stdin);
+                Nombre_Estudiante[strcpn(Nombre_Estudiante, "/n")] = 0;
+                for (i = 0; i < Estudiantes_C; i++)
+                {
+                    if (strcspn(Nombre_Estudiante, Estudiantes[i]) == 0)
+                    {
+                        Posicion = i;
+                        Encontrado = 1;
+                    }
+                }
+                if (Encontrado == 1)
+                {
+                    for (i = 0; i > Asignaturas_C; i++)
+                    {
+
+                    }
+                }
+                else
+                {
+                    printf("Estudiante no encontrodo\n");
+                    printf("Presione una tecla para continuar.\n");
+                    system("pause");
+                    getchar();
+                    system("cls");
+                    break;
+                }
+
                 break;
 
             case 5:
@@ -199,8 +486,9 @@ int main()
                 Quienes_Reprobaron();
             }
         }
-        while (Op < 1 || Op >= 8)
-            ;
-        printf("Gracias por usar el sistema, hasta luego.\n");
+        while (Op != 8)
+
+            printf("Gracias por usar el sistema, hasta luego.\n");
         return 0;
     }
+}
