@@ -20,14 +20,16 @@ int main()
     char Asignaturas[MAX_ASIGNATURAS][50];
     char Estudiantes[MAX_ESTUDIANTES][50];
     float Calificacion[20][10];
+    float Promedio;
+    float Calificacion_T;
 
     // --- VARIABLES DE CONTROL Y CONTADORES ---
     int Op = 0, Op2 = 0;
     int Asignaturas_C = 0, Estudiantes_C = 0;
-    int i_Asignaturas, i_Estudiantes = 0; // i_Asignaturas me ayuda a saber donde se guarda lo que el usuario ponga
+    int i_Asignaturas = 0, i_Estudiantes = 0; // i_Asignaturas me ayuda a saber donde se guarda lo que el usuario ponga
     int Listas = 1;
     int Num_Asignatura = 0, Num_Estudiantes = 0;
-    int i = 0, b = 0, j= 0;
+    int i = 0, b = 0, j = 0;
     int Borrar_Asignatura, Borrar_Estudiante;
     int Encontrado, Encontrado2, Posicion, Posicion2;
 
@@ -56,7 +58,7 @@ int main()
             printf("Usuario o contrasena incorrectos. Intente de nuevo.\n");
             printf("Toque una tecla para continuar\n");
             system("pause");
-            getchar();
+
             system("cls");
         }
 
@@ -67,7 +69,7 @@ int main()
     printf("\n¡Acceso concedido! Bienvenido al sistema.\n");
     printf("Toque una tecla para continuar\n");
     system("pause");
-    getchar();
+
     system("cls");
 
     do
@@ -86,6 +88,8 @@ int main()
 
         i_Pedidas = 1;
         Listas = 1;
+        Encontrado2 = 0;
+        Encontrado = 0;
 
         switch (Op)
         {
@@ -95,16 +99,6 @@ int main()
             i_Pedidas = 1;
             do
             {
-                for (i = 0; i != i_Pedidas; i++)
-                {
-                    if (i > 0)
-                    {
-                        printf("Presione algo para continuar\n");
-                        system("pause");
-                        getchar();
-                        system("cls");
-                    }
-                }
 
                 printf("Menu de Opciones\n");
                 printf("1.- Registrar Asignatura\n");
@@ -118,7 +112,7 @@ int main()
                 switch (Op2)
                 {
                 case 1:
-
+                    system("cls");
                     printf("Escriba el nombre de la Asignatura a registrar: ");
                     fgets(Asignaturas[i_Asignaturas], sizeof(Asignaturas[i_Asignaturas]), stdin);
                     Asignaturas[i_Asignaturas][strcspn(Asignaturas[i_Asignaturas], "\n")] = 0;
@@ -127,12 +121,13 @@ int main()
                     i_Asignaturas++;
                     printf("Presione algo para continuar\n");
                     system("pause");
-                    getchar();
+
                     system("cls");
                     break;
 
                 case 2:
-
+                    system("cls");
+                    Listas = 1;
                     for (i = 0; i < Asignaturas_C; i++)
                     {
                         printf("%d.-  ", Listas++);
@@ -147,12 +142,13 @@ int main()
                     printf("Asignatura editada correctamente: %s\n", Asignaturas[Num_Asignatura - 1]);
                     printf("Presione algo para continuar\n");
                     system("pause");
-                    getchar();
+
                     system("cls");
                     break;
 
                 case 3:
-
+                    system("cls");
+                    Listas = 1;
                     for (i = 0; i < Asignaturas_C; i++)
                     {
                         printf("%d.-  ", Listas++);
@@ -182,7 +178,7 @@ int main()
                         Asignaturas_C--;
                         printf("Presione algo para continuar\n");
                         system("pause");
-                        getchar();
+
                         system("cls");
                         break;
                     }
@@ -191,13 +187,14 @@ int main()
                         printf("Numero de asignatura invalido.\n");
                         printf("Presione algo para continuar\n");
                         system("pause");
-                        getchar();
+
                         system("cls");
                         break;
                     }
 
                 case 4:
-
+                    system("cls");
+                    Listas = 1;
                     for (i = 0; i < Asignaturas_C; i++)
                     {
                         printf("%d.-  ", Listas++);
@@ -205,8 +202,11 @@ int main()
                     }
                     printf("Presione algo para continuar\n");
                     system("pause");
-                    getchar();
+
                     system("cls");
+                    break;
+
+                default:
                     break;
                 }
 
@@ -226,13 +226,14 @@ int main()
             i_Pedidas = 1;
             do
             {
+                Listas = 1;
                 for (i = 0; i != i_Pedidas; i++)
                 {
                     if (i > 0)
                     {
                         printf("Presione algo para continuar\n");
                         system("pause");
-                        getchar();
+
                         system("cls");
                     }
                 }
@@ -250,6 +251,7 @@ int main()
                 {
                 case 1:
 
+                    system("cls");
                     printf("Escriba el nombre del Estudiante a registrar: ");
                     fgets(Estudiantes[i_Estudiantes], sizeof(Estudiantes[i_Estudiantes]), stdin);
                     Estudiantes[i_Estudiantes][strcspn(Estudiantes[i_Estudiantes], "\n")] = 0;
@@ -258,12 +260,13 @@ int main()
                     i_Estudiantes++;
                     printf("Presione algo para continuar\n");
                     system("pause");
-                    getchar();
+
                     system("cls");
                     break;
 
                 case 2:
-
+                    Listas = 1;
+                    system("cls");
                     for (i = 0; i < Estudiantes_C; i++)
                     {
                         printf("%d.-  ", Listas++);
@@ -278,12 +281,13 @@ int main()
                     printf("Estudiante editado correctamente: %s\n", Estudiantes[Num_Estudiantes - 1]);
                     printf("Presione algo para continuar\n");
                     system("pause");
-                    getchar();
+
                     system("cls");
                     break;
 
                 case 3:
-
+                    Listas = 1;
+                    system("cls");
                     for (i = 0; i < Estudiantes_C; i++)
                     {
                         printf("%d.-  ", Listas++);
@@ -313,7 +317,7 @@ int main()
                         Estudiantes_C--;
                         printf("Presione algo para continuar\n");
                         system("pause");
-                        getchar();
+
                         system("cls");
                         break;
                     }
@@ -322,13 +326,14 @@ int main()
                         printf("Numero de estudiante invalido.\n");
                         printf("Presione algo para continuar\n");
                         system("pause");
-                        getchar();
+
                         system("cls");
                         break;
                     }
 
                 case 4:
-
+                    Listas = 1;
+                    system("cls");
                     for (i = 0; i < Estudiantes_C; i++)
                     {
                         printf("%d.-  ", Listas++);
@@ -336,7 +341,7 @@ int main()
                     }
                     printf("Presione algo para continuar\n");
                     system("pause");
-                    getchar();
+
                     system("cls");
                     break;
                 }
@@ -353,21 +358,26 @@ int main()
 
         case 3:
             system("cls");
+            Listas = 1;
             if (Asignaturas_C <= 0 || Estudiantes_C <= 0)
             {
                 printf("No hay asignaturas o estudiantes registrados.\n");
+                printf("Presione una tecla para continuar.\n");
+                system("pause");
+
+                system("cls");
                 break;
             }
             else if (Asignaturas_C > 0 && Estudiantes_C > 0)
             {
                 for (i = 0; i < Estudiantes_C; i++)
                 {
-                    printf("Estudiante registrados: %s", Estudiantes[i]);
+                    printf("Estudiante registrados: %s\n", Estudiantes[i]);
                 }
                 printf("Ingrese el nombre del estudiante para registrar calificaciones:\n");
                 fgets(Nombre_Estudiante, sizeof(Nombre_Estudiante), stdin);
                 Nombre_Estudiante[strcspn(Nombre_Estudiante, "\n")] = 0;
-
+                Encontrado = 0;
                 for (i = 0; i < Estudiantes_C; i++)
                 {
                     // Comparamos el estudiante en la posición [i] con el nombre buscado
@@ -380,17 +390,23 @@ int main()
 
                 if (Encontrado == 1)
                 {
+
                     printf("Estudiante Encontrado.\n");
                     printf("Presione una tecla para continuar.\n");
                     system("pause");
-                    getchar();
+
                     system("cls");
                     do
                     {
-                        printf("En que asignatura desea ingresar la calificación para %s:", Nombre_Estudiante);
+                        for (i = 0; i < Asignaturas_C; i++)
+                        {
+
+                            printf("Asignatura registrada: %s\n", Asignaturas[i]);
+                        }
+                        printf("En que asignatura desea ingresar la calificación para %s: ", Nombre_Estudiante);
                         fgets(Nombre_Asignatura, sizeof(Nombre_Asignatura), stdin);
                         Nombre_Asignatura[strcspn(Nombre_Asignatura, "\n")] = 0;
-
+                        Encontrado2 = 0;
                         for (i = 0; i < Asignaturas_C; i++)
                         {
                             // Comparamos el estudiante en la posición [i] con el nombre buscado
@@ -406,7 +422,7 @@ int main()
                             printf("Asignatura Seleccionada.\n");
                             printf("Presione una tecla para continuar.\n");
                             system("pause");
-                            getchar();
+
                             system("cls");
                         }
                         else
@@ -414,31 +430,45 @@ int main()
                             printf("Asignatura no encontrada\n");
                             printf("Presione una tecla para continuar.\n");
                             system("pause");
-                            getchar();
+
                             system("cls");
                         }
                     } while (Encontrado2 != 1);
 
                     printf("Ingrese la calificación para %s en %s: ", Nombre_Estudiante, Nombre_Asignatura);
                     scanf("%f", &Calificacion[Posicion][Posicion2]);
+                    getchar();
                     printf("Calificación registrada correctamente.\n");
-                    printf("%s en la %s: %.2f\n", Nombre_Estudiante, Nombre_Asignatura, Calificacion[Posicion][Posicion2]);
+                    printf("%s en la %s: %.2f/10\n", Nombre_Estudiante, Nombre_Asignatura, Calificacion[Posicion][Posicion2]);
                     printf("Presione una tecla para continuar.\n");
                     system("pause");
-                    getchar();
+
                     system("cls");
                     break;
                 }
                 printf("Estudiante no encontrado.\n");
                 printf("Presione una tecla para continuar.\n");
                 system("pause");
-                getchar();
+
                 system("cls");
                 break;
 
+                // case 4
+                // ============================================================
+                // ============================================================
+                // ============================================================
+                // ============================================================
+                // ============================================================
+
             case 4:
+                Listas = 1;
                 system("cls");
-                printf("A que estudiante desea buscar:\n");
+                for (i = 0; i < Estudiantes_C; i++)
+                {
+                    printf("%d.-  ", Listas++);
+                    printf("Estudiante registrado: %s\n", Estudiantes[i]);
+                }
+                printf("Escriba el nombre del Estudiante que desea buscar: \n");
                 fgets(Nombre_Estudiante, sizeof(Nombre_Estudiante), stdin);
                 Nombre_Estudiante[strcspn(Nombre_Estudiante, "\n")] = 0;
                 for (i = 0; i < Estudiantes_C; i++)
@@ -451,10 +481,18 @@ int main()
                 }
                 if (Encontrado == 1)
                 {
-                    for (j = 0; j < Asignaturas_C; j++)
+                    if (Asignaturas_C > 0)
                     {
-                        printf("Las notas del estudiante : %s", Nombre_Estudiante);
-                        printf("%s: %f\n", Asignaturas[j], Calificacion[Posicion][j]);
+                        printf("Las notas del estudiante : %s\n", Nombre_Estudiante);
+                        for (j = 0; j < Asignaturas_C; j++)
+                        {
+
+                            printf("%s: %.2f/10\n", Asignaturas[j], Calificacion[Posicion][j]);
+                        }
+                        printf("Presione una tecla para continuar.\n");
+                        system("pause");
+
+                        system("cls");
                     }
                 }
                 else
@@ -462,34 +500,168 @@ int main()
                     printf("Estudiante no encontrodo\n");
                     printf("Presione una tecla para continuar.\n");
                     system("pause");
-                    getchar();
+
                     system("cls");
                     break;
                 }
 
                 break;
 
+                // case 5
+                // ============================================================
+                // ============================================================
+                // ============================================================
+                // ============================================================
+                // ============================================================
+
             case 5:
+                Listas = 1;
+                Encontrado = 0;
+                Calificacion_T = 0;
                 system("cls");
-                printf("Buscar promedio de Asignaturas\n");
-                Promedio_Asignaturas();
+                for (i = 0; i < Asignaturas_C; i++)
+                {
+                    printf("%d.-  ", Listas++);
+                    printf("Asignatura registrada: %s\n", Asignaturas[i]);
+                }
+                printf("De que asignatura desea buscar el promedio: ");
+                fgets(Nombre_Asignatura, sizeof(Nombre_Asignatura), stdin);
+                Nombre_Asignatura[strcspn(Nombre_Asignatura, "\n")] = 0;
+                if (Asignaturas_C > 0)
+                {
+                    for (i = 0; i < Asignaturas_C; i++)
+                    {
+                        if (strcmp(Nombre_Asignatura, Asignaturas[i]) == 0)
+                        {
+                            Encontrado = 1;
+                            Posicion2 = i;
+                        }
+                    }
+                }
+                else
+                {
+                    printf("No hay asignaturas registradas\n");
+                    printf("Presione una tecla para continuar.\n");
+                    system("pause");
+
+                    system("cls");
+                    break;
+                }
+                if (Encontrado == 1)
+                {
+                    for (i = 0; i < Estudiantes_C; i++)
+                    {
+                        Calificacion_T = Calificacion_T + Calificacion[i][Posicion2];
+                    }
+                    Promedio = Calificacion_T / Estudiantes_C * 10;
+                    printf("El promedio de la asignatura %s es: %.2f Porciento\n", Asignaturas[Posicion2], Promedio);
+                    printf("Presione una tecla para continuar.\n");
+                    system("pause");
+
+                    system("cls");
+                    break;
+                }
+                else
+                {
+                    printf("No se a encontrado la asignatura\n");
+                    printf("Presione una tecla para continuar.\n");
+                    system("pause");
+
+                    system("cls");
+                    break;
+                }
+
                 break;
 
             case 6:
                 system("cls");
-                printf("Mostrar calificacion mas baja de cada estudiante por asignatura\n");
-                Calificacion_Mas_Baja();
+                printf("Calificaciones mas bajas de cada Estudiante por Asignatura\n");
+                if (Estudiantes_C <= 0 || Asignaturas_C <= 0)
+                {
+                    printf("No hay estudiantes o asignaturas registradas en el sistema.\n");
+                    printf("Presione una tecla para continuar.\n");
+                    system("pause");
+
+                    system("cls");
+                    break;
+                }
+                else
+                {
+                    // Recorremos cada estudiante registrado
+                    for (i = 0; i < Estudiantes_C; i++)
+                    {
+                        // Asumimos inicialmente que la nota más baja es la de la primera asignatura (índice 0)
+                        float menor_nota = Calificacion[i][0];
+                        int pos_asignatura = 0;
+
+                        // Recorremos las demás asignaturas para comparar
+                        for (j = 1; j < Asignaturas_C; j++)
+                        {
+                            if (Calificacion[i][j] < menor_nota)
+                            {
+                                menor_nota = Calificacion[i][j]; // Actualizamos la menor nota
+                                pos_asignatura = j;              // Guardamos la posición de la asignatura
+                            }
+                        }
+
+                        // Mostramos el resultado para el estudiante actual
+                        printf("Estudiante: %s\n", Estudiantes[i]);
+                        printf("Asignatura con nota mas baja: %s (Nota: %.2f)\n", Asignaturas[pos_asignatura], menor_nota);
+                    }
+                    printf("Presione una tecla para continuar.\n");
+                    system("pause");
+
+                    system("cls");
+                    break;
+                }
                 break;
 
             case 7:
                 system("cls");
-                printf("Quienes reprobaron\n");
-                Quienes_Reprobaron();
+                printf("--- Estudiantes Reprobados ---\n");
+
+                if (Estudiantes_C <= 0 || Asignaturas_C <= 0)
+                {
+                    printf("No hay estudiantes o asignaturas registradas en el sistema.\n");
+                }
+                else
+                {
+                    int total_reprobados = 0;
+
+                    // Recorremos cada estudiante
+                    for (i = 0; i < Estudiantes_C; i++)
+                    {
+                        int reprobo_algun_lado = 0; // Bandera para saber si reprobó algo
+
+                        printf("Estudiante: %s\n", Estudiantes[i]);
+
+                        // Recorremos las asignaturas de ese estudiante
+                        for (j = 0; j < Asignaturas_C; j++)
+                        {
+                            // Cambia el '6.0' por la nota mínima aprobatoria de tu escuela si es diferente
+                            if (Calificacion[i][j] < 6.0)
+                            {
+
+                                printf("  -> Reprobó en %s con nota de: %.2f\n", Asignaturas[j], Calificacion[i][j]);
+                                reprobo_algun_lado = 1;
+                            }
+                        }
+
+                        if (reprobo_algun_lado == 0)
+                        {
+                            printf("  -> ¡Aprobado en todas las asignaturas!\n");
+                        }
+                    }
+                }
+
+                printf("Presione una tecla para continuar.\n");
+                system("pause");
+                system("cls");
+                break;
             }
         }
-        while (Op != 8)
+    } while (Op != 8);
 
-            printf("Gracias por usar el sistema, hasta luego.\n");
-        return 0;
-    }
+    printf("Gracias por usar el sistema, hasta luego.\n");
+    return 0;
 }
