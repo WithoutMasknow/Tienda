@@ -30,6 +30,8 @@ void Edita_Producto();
 void Buscar_Producto();
 void Ordenar_y_Mostrar();
 void Calcular_T_R();
+
+void Yes_No();
 // Funciones-----------------------------------------------
 
 int main()
@@ -166,26 +168,20 @@ void Registrar_Producto() {
 			printf("kg\n");
 			j++;
 			Limpieza();
-			do {
-				printf("Desea registrar otro recurso (yes / no): ");
-				fgets(Yes_No, sizeof(Yes_No), stdin);
-				Yes_No[strcspn(Yes_No, "\n")] = 0;
-
-				if (strcmp(Yes_No, "yes") != 0 && strcmp(Yes_No, "no") != 0 &&
-				        strcmp(Yes_No, "YES") != 0 && strcmp(Yes_No, "NO") != 0 &&
-				        strcmp(Yes_No, "Yes") != 0 && strcmp(Yes_No, "No") != 0) {
-					printf("\nOpcion invalida. Por favor escriba 'yes' o 'no'.\n");
-					Limpieza();
-				} else {
-					break;
-				}
-			} while(1);
+			void Yes_No();
 		} while(Yes_No !=no ||Yes_No !=NO || Yes_No != No);
 
 		Cantidad_P++;
 
-		do {
-			printf("Desea seguir registrando productos (yes / no): ");
+		void Yes_No();
+
+		} while(Yes_No !=no ||Yes_No !=NO || Yes_No != No);
+
+}
+// Yes o No------------------------------------------------
+void Yes_No(){
+	do {
+				printf("Desea seguir registrando (yes / no): ");
 				fgets(Yes_No, sizeof(Yes_No), stdin);
 				Yes_No[strcspn(Yes_No, "\n")] = 0;
 
@@ -198,9 +194,6 @@ void Registrar_Producto() {
 					break;
 				}
 			} while(1);
-
-		} while(Yes_No !=no ||Yes_No !=NO || Yes_No != No);
-
-}
+			}
 
 // Funciones-----------------------------------------------
