@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 // Definimos
-#define MAX_PRODUCTOS 10
+#define MAX_PRODUCTOS 5
 #define MAX_RECURSOS 3
 
 // Variables Globales--------------------------------------
@@ -11,10 +11,10 @@
 // Principales
 char Nombre_P[MAX_PRODUCTOS][50];
 float Tiempo_P[MAX_PRODUCTOS];
-char Nombre_R[MAX_PRODUCTOS * 3][50];
-float Recurso_Kg[MAX_PRODUCTOS][MAX_RECUROS];
+char Nombre_R[MAX_PRODUCTOS][MAX_RECURSOS][50];
+float Recursos_Kg[MAX_PRODUCTOS][MAX_RECURSOS];
 int Cantidad_P = 0;
-char Yes_No;
+char Yes_No[50];
 
 // Variables Globales--------------------------------------
 
@@ -23,7 +23,7 @@ void Limpieza();
 
 void Authentificador();
 
-void Menu();
+int Menu();
 
 void Registrar_Producto();
 void Edita_Producto();
@@ -31,41 +31,44 @@ void Buscar_Producto();
 void Ordenar_y_Mostrar();
 void Calcular_T_R();
 
-void Yes_No();
+void Seguir();
 // Funciones-----------------------------------------------
 
 int main()
 {
+	int Op;
 	system("cls");
-	void Authentificador();
+	Authentificador();
 
 	do {
 		int Menu();
-		int Op = Menu;
+		Op = Menu();
 
 		switch(Op) {
 		case 1:
-			void Registrar_Producto();
+			Registrar_Producto();
 			break;
 		case 2:
-			void Edita_Producto();
+			Edita_Producto();
 			break;
 		case 3:
-			void Buscar_Producto();
+			Buscar_Producto();
 			break;
 		case 4:
-			void Ordenar_y_Mostrar();
+			Ordenar_y_Mostrar();
 			break;
 		case 5:
-      void Calcular_T_R();
+			Calcular_T_R();
 			break;
-    case 6:
-      break;
+		case 6:
+			break;
+			printf("Muchas Gracias por usar el Sistema");
+			printf("Saliendo");
 		}
 	} while(Op != 6);
 
+	Limpieza();
 }
-system("cls");
 // Funciones-----------------------------------------------
 
 // Limpieza------------------------------------------------
@@ -78,9 +81,9 @@ void Limpieza()
 
 // Authentificación-----------------------------------------
 void Authentificador() {
-	char Usuario[20] = "Marlon y David";
+	char Usuario[20] = "1";
 	char V_Identidad[20];
-	int Contrasena = 123456;
+	int Contrasena = 1;
 	int V_Contrasena;
 
 	do
@@ -90,6 +93,11 @@ void Authentificador() {
 		fgets(V_Identidad, sizeof(V_Identidad), stdin);
 		V_Identidad[strcspn(V_Identidad, "\n")] = 0;
 		printf("\n");
+        // while (getchar()= \n)
+        // {
+        //     /* code */
+        // }
+        
 
 		printf("Ingrese la contrasena:\n");
 		printf("Profe la contrasena es: 123456\n");
@@ -111,8 +119,8 @@ void Authentificador() {
 }
 
 // Menu----------------------------------------------------
-int menu() {
-	int Op
+int Menu() {
+	int Op;
 	do {
 		printf("--------Menu de opciones:--------\n");
 		printf("1. Registrar Producto.\n");
@@ -129,71 +137,89 @@ int menu() {
 			printf("Vuelva a intentarlo\n");
 			Limpieza();
 		}
-	} while(Op>=1 && Op<=6);
+	} while(Op>6 || Op<1);
 	return Op;
+	Limpieza();
 }
 
 //Registrar Producto-------------------------------------
 void Registrar_Producto() {
 	int i;
 	i = Cantidad_P;
-	int j;
+	int C3;
+
 
 	do {
 
 		printf("Escriba el nombre del Producto a Registrar: ");
 		fgets(Nombre_P[i], sizeof(Nombre_P[i]), stdin);
-		Nombre_P[strcspn(Nombre_P), "\n")] = 0;
+		Nombre_P[i][strcspn(Nombre_P[i], "\n")] = 0;
 		printf("\n");
 		printf("Escriba el tiempo necesario en MINUTOS para fabricar una Unidad o Caja (Use el punto no la coma): ");
 		scanf("%f", &Tiempo_P[i]);
 		getchar();
 		printf(" minutos\n");
 
-		j = 0;
-		j = i + j;
+		C3 = 0;
+
 		do {
-			if(j > i + 3) {
-				printf("SOLO PUEDES INGRESAR 3 RECURSO POR PRODUCTO\n);
+			if(C3 == 3) {
+				printf("SOLO PUEDES INGRESAR 3 RECURSO POR PRODUCTO\n");
 				       Limpieza();
 				       break;
 			}
 			printf("Escriba el nombre del recurso necesario para fabricar %s: ", Nombre_P[i]);
-			fgets(Nombre_R[j], sizeof(Nombre_R[j]), stdin);
-			Nombre_R[strcspn(Nombre_R), "\n")] = 0;
+			fgets(Nombre_R[i][C3], sizeof(Nombre_R[i][C3]), stdin);
+			Nombre_R[i][C3][strcspn(Nombre_R[i][C3], "\n")] = 0;
 
 			printf("Escriba el PESO en KG para fabricar una Unidad o Caja (Use el punto no la coma): ");
-			scanf("%f", &Recursos_kg[i][j-i]);
+			scanf("%f", &Recursos_Kg[i][C3]);
 			getchar();
 			printf("kg\n");
-			j++;
+
+			C3++;
+
 			Limpieza();
-			void Yes_No();
-		} while(Yes_No !=no ||Yes_No !=NO || Yes_No != No);
+			printf("Desea seguir registrando recursos para %s (yes / no): ",Nombre_P[i]);
+			void Seguir();
+
+		} while(strcmp(Yes_No, "no") != 0 && strcmp(Yes_No, "NO") != 0 &&
+            strcmp(Yes_No, "No") != 0);
 
 		Cantidad_P++;
+		printf("Desea registrar otro producto (yes / no): ");
+		void Seguir();
 
-		void Yes_No();
-
-		} while(Yes_No !=no ||Yes_No !=NO || Yes_No != No);
+	} while(strcmp(Yes_No, "no") != 0 && strcmp(Yes_No, "NO") != 0 &&
+            strcmp(Yes_No, "No") != 0);
 
 }
 // Yes o No------------------------------------------------
-void Yes_No(){
+void Seguir() {
 	do {
-				printf("Desea seguir registrando (yes / no): ");
-				fgets(Yes_No, sizeof(Yes_No), stdin);
-				Yes_No[strcspn(Yes_No, "\n")] = 0;
+		fgets(Yes_No, sizeof(Yes_No), stdin);
+		Yes_No[strcspn(Yes_No, "\n")] = 0;
 
-				if (strcmp(Yes_No, "yes") != 0 && strcmp(Yes_No, "no") != 0 &&
-				        strcmp(Yes_No, "YES") != 0 && strcmp(Yes_No, "NO") != 0 &&
-				        strcmp(Yes_No, "Yes") != 0 && strcmp(Yes_No, "No") != 0) {
-					printf("\nOpcion invalida. Por favor escriba 'yes' o 'no'.\n");
-					Limpieza();
-				} else {
-					break;
-				}
-			} while(1);
-			}
-
+		if (strcmp(Yes_No, "yes") != 0 && strcmp(Yes_No, "no") != 0 &&
+		        strcmp(Yes_No, "YES") != 0 && strcmp(Yes_No, "NO") != 0 &&
+		        strcmp(Yes_No, "Yes") != 0 && strcmp(Yes_No, "No") != 0) {
+			printf("\nOpcion invalida. Por favor escriba 'yes' o 'no'.\n");
+			Limpieza();
+		} else {
+			break;
+		}
+	} while(1);
+}
+void Edita_Producto(){
+			printf("En proseso");
+		}
+void Buscar_Producto(){
+			printf("En proseso");
+		}
+void Ordenar_y_Mostrar(){
+			printf("En proseso");
+		}
+void Calcular_T_R(){
+			printf("En proseso");
+		}
 // Funciones-----------------------------------------------
